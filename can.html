@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,30 +8,51 @@
     <title>画板</title>
     <link rel="stylesheet" href="can.css">
 </head>
+
 <body>
     <canvas id="canvas" width="100" height="100"></canvas>
     <script>
-        let canvas=document.getElementById('canvas');
-        canvas.width=document.documentElement.clientWidth
-        canvas.height=document.documentElement.clientHeight
-        let ctx=canvas.getContext('2d');
-        let painting=false
-        ctx.fillStyle='blue';
-        canvas.onmousedown=()=>{
-            painting=true
+        let canvas = document.getElementById('canvas');
+        canvas.width = document.documentElement.clientWidth
+        canvas.height = document.documentElement.clientHeight
+
+        let ctx = canvas.getContext('2d');
+        let painting = false
+        
+
+        ctx.fillStyle = 'black';
+        ctx.strokeStyle = 'none'
+
+        var isTouchDevice='ontouchstart' in
+        document.documentElement;
+        if(isTouchDevice){
+                canvas.ontouchmove = (e) => {
+                ctx.beginPath();
+                ctx.arc(e.touches[0].clientX, e.touches[0].clientY, 10, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.fill();
+
+                }
+            }else{
+        canvas.onmousedown = () => {
+            painting = true
+            
         }
-        canvas.onmousemove=(e)=>{
-            if(painting===true){
-            console.log(e.clientX)
-            console.log(e.clientY)
-            ctx.fillRect(e.clientX-5,e.clientY-5,10,10);}
-            else{
+        canvas.onmousemove = (e) => {
+            if (painting === true) {
+                ctx.beginPath();
+                ctx.arc(e.clientX, e.clientY, 10, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.fill();
+            }
+            else {
                 console.log('nothing')
             }
         }
-        canvas.onmouseup=()=>{
-            painting=false
-        }
+        canvas.onmouseup = () => {
+            painting = false
+        }}
     </script>
 </body>
+
 </html>
