@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="can.css">
 </head>
 <body>
-    <div class="canvas">dfd</div>
+    <div id="canvas">dfd</div>
+    <script>
+        canvas.onclick = (e) =>{
+            console.log(e.clientX)
+            console.log(e.clientY)
+            let div=document.createElement('div')
+            div.style.position='absolute'
+            div.style.left=e.clientX+'px'
+            div.style.top=e.clientY+'px'
+            div.style.background='black'
+            div.style.width='6px'
+            div.style.hight='6px'
+            div.style.marginLeft='-3px'
+            div.style.marginTop='-3px'
+            div.style.borderRadius='50%'
+            canvas.appendChild(div)
+        }
+    </script>
 </body>
 </html>
